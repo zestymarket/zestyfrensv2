@@ -1,0 +1,117 @@
+const { ethers } = require("hardhat");
+const hre = require("hardhat");
+
+async function main() {
+  const list = [
+    "0x0030c9dd1da63af7d7df6b8332aef5fae99f536b",
+    "0x247332f68a529ab11a65d665cf84ca376a24688a",
+    "0xc6a68e2d63a88186ecbe97bc221825f2e2852e6e",
+    "0x0bd11449ffc6e8c5c84f33abadd5a660389557df",
+    "0xd790c407372f966548f1d9309bb03cd7da99ebf2",
+    "0x5ec79ca366382ea6a8787607526f03b4e2a15c91",
+    "0x1ce139b73dbc1d855e4b360856ac3885558fc5f8",
+    "0xab60593171fba46ef39b4578b6d06db8408f131f",
+    "0x9c77652c1b5bdc8e2491e685b02854b9091d89ff",
+    "0x89a1d4927952db40106f73d0ccb70581b348607e",
+    "0x42bc9a85e1c6a08176754a1457f257801d5fcead",
+    "0x0284a83c73aaa62bbb7c2f9cb0157644ee32daa7",
+    "0xf99c46047437eb20fd4ab2ffffff3874a3156eab",
+    "0x9e354ef7af5dcc17487e7b729007bf2df54b0fae",
+    "0xf511117b36d837de9aa08d63ea57fdacf7e1a61a",
+    "0xfae45a84178186ce0b0be4411ec61ba80279c631",
+    "0x108013ece48fecbc3dd03ff42af005e52d08fc7f",
+    "0x31fabce458477dcad74a370e977cefd940401584",
+    "0x1509ee6dc3f18379acc47ab7d349fc1913d2342c",
+    "0x7a2c8466603a4d9ef3a294672d5402b2ebe58260",
+    "0x6073eeb1b728ca634063893ce7dddd2ba4628587",
+    "0x2b2dc702695651c40f6ee131ec87ffdbfa4e36ce",
+    "0xc17e13bf392008701f70226363f3403e0fd78c7c",
+    "0xb2c91d8a65728ab06e7f7e380164abb7bdc92fbf",
+    "0x5ef8d33c8b1c50abe60a95306593f03798baa4fd",
+    "0x1ce139b73dbc1d855e4b360856ac3885558fc5f8",
+    "0xd790c407372f966548f1d9309bb03cd7da99ebf2",
+    "0x88e0c62b26454f0edad181eb8f36890d166142cc",
+    "0x39b7e175bc32f60a2e57663a4e6c7c11c9cc229e",
+    "0x291693440cb7ec6efbe1cdb1ca71dd68e1d79909",
+    "0x9e354ef7af5dcc17487e7b729007bf2df54b0fae",
+    "0xfae45a84178186ce0b0be4411ec61ba80279c631",
+    "0x79d2d7bac7d262535c9660d3c7dcdc961172b905",
+    "0x89a1d4927952db40106f73d0ccb70581b348607e",
+    "0x0030c9dd1da63af7d7df6b8332aef5fae99f536b",
+    "0x21b3cb6f6241a77e443d97e77037cfe01dfc08f3",
+    "0x576e2b53432a1813092059562f6eb20cf158ff1b",
+    "0xbc3feba1b906384980ff6ec3c417b34a033a9462",
+    "0x66ca45e79746984385d185dcc000fae482123072",
+    "0xc0f0eb1a7762432790330893eb3460fb21806793",
+    "0x5fb8b9512684d451d4e585a1a0aabfb48a253c67",
+    "0x0bd11449ffc6e8c5c84f33abadd5a660389557df",
+    "0x3176f57a0f0a655209cd1a9033a3cedfc844df7a",
+    "0x5ef8d33c8b1c50abe60a95306593f03798baa4fd",
+    "0x865c2f85c9fea1c6ac7f53de07554d68cb92ed88",
+    "0xa49aebafebeb93559aba9f394bb530605b94296e",
+    "0x3e164c152a37aed006c9f01d677a2d4a87d4f317",
+    "0x11aaf71cee33be840807d1b47170e2ff3fb898aa",
+    "0x932d181ac39cdd5378be7a29fd4a82db383a184b",
+    "0xfccd3954e5b7d6b2db57f3b0ecdfca3b667882d7",
+    "0x1ce139b73dbc1d855e4b360856ac3885558fc5f8",
+    "0x89a1d4927952db40106f73d0ccb70581b348607e",
+    "0x9c77652c1b5bdc8e2491e685b02854b9091d89ff",
+    "0x0bd11449ffc6e8c5c84f33abadd5a660389557df",
+    "0x108013ece48fecbc3dd03ff42af005e52d08fc7f",
+    "0x0030c9dd1da63af7d7df6b8332aef5fae99f536b",
+    "0x247332f68a529ab11a65d665cf84ca376a24688a",
+    "0xd790c407372f966548f1d9309bb03cd7da99ebf2",
+    "0x5ec79ca366382ea6a8787607526f03b4e2a15c91",
+    "0x7f0b3f1cfb2b35433efde2419b4fa27d1094d7af",
+    "0x9e354ef7af5dcc17487e7b729007bf2df54b0fae",
+    "0xf99c46047437eb20fd4ab2ffffff3874a3156eab",
+    "0xa1f14fc2ccb14ea4856208dc21d9b77b83c2134d",
+    "0x0bce3238fb72ece1e0ec7cac2cf4ee6c5ba2ff48",
+    "0x3c7d5bb537abae440e0abe552342f422a4b1e6c1",
+    "0x6bda0404288459cdc35b95a0162636088dccbee8",
+    "0xb2e0a81f67142a67baf8dc9877e56fd695e5d058",
+    "0xb9a58cd3ffc6a2d7f5f0ffd8aff1ceefc43fe478",
+    "0xe5b1918d99f9b5b63817f6c9a7afda744ef1f647",
+    "0x80f4a80123a0b9e1f8303095bd50225638e6b13c",
+    "0x53aa7ec5ec6cc150fe6cdcf0fddec50e1f4873c6",
+    "0x09dce0f0960c35ee0307d602f22eaeafccff209d",
+    "0x8d5b48934c0c408adc25f14174c7307922f6aa60",
+    "0x986a1de622305f441a3c763036ca06da417ffff4",
+    "0x19dfdc194bb5cf599af78b1967dbb3783c590720",
+    "0x35e7711bb0937848279621a8958be0f2f9f4d28d",
+    "0xe068af339cc92380cf640fc59128f61b5b425ff1",
+    "0x8e5e83eba5a4820b3c030c2573c7f9e76395befa",
+    "0x51c16902c857427c473c7319ce52687ecc7e365d",
+    "0x4945b2c64e3ed10368c3621ced361872b5a96550",
+    "0xdbf14da8949d157b57acb79f6eee62412b210900",
+    "0x52dbdfb66dfa8429856b047e95f161b6386ee75f",
+    "0x444f35f9d673abb35d45dbaf08199a97086d2b88",
+    "0x2bf034eccebc8cd60dab9c249b6c2996dcb7d8ec",
+    "0xc53ae9abe5ddb70edb1c339ad7e30306f79fde1e",
+    "0x376fe28e03e2c7c7dbec05a1e393a0202b39f563",
+    "0x5fb8b9512684d451d4e585a1a0aabfb48a253c67",
+    "0x4b899ac9e2b330a432a2525d27a12dcde926c1fc",
+    "0x1a2b73207c883ce8e51653d6a9cc8a022740cca4",
+    "0xa1455e19c297b9a0a0e894208d041ad40cc5c23d",
+    "0x23aa2d5f524c97e884109a5c85112b0f56eb6c08",
+    "0x9705cc41538ab511260cbe7f271d52e75b4b906b",
+    "0xc6a68e2d63a88186ecbe97bc221825f2e2852e6e",
+  ];
+  const Child = await hre.ethers.getContractFactory("ChildMintableERC721");
+  const child = await Child.attach("0x1e054e938BACA37BebE0f4E1B481edcD599e0701");
+  const [owner] = await hre.ethers.getSigners();
+  console.log(owner);
+
+  for (var i=0; i < list.length; i++) {
+    await child.connect(owner).mint(list[i], i);
+    console.log(`Airdrop Fren ${i} to ${list[i]}`);
+  }
+  console.log("AIRDROP COMPLETE");
+}
+
+// We recommend this pattern to be able to use async/await everywhere
+// and properly handle errors.
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
